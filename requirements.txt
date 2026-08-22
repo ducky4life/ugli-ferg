@@ -1,0 +1,4 @@
+pyflakes
+discord.py[voice]
+pynacl
+python-dotenv
