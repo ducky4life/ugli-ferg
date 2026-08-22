@@ -2,3 +2,4 @@ pyflakes
 discord.py[voice]
 pynacl
 python-dotenv
+html2image
