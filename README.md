@@ -7,7 +7,8 @@ docker support too thank you chromium
 ### features
 
 - save screenshots from strings, html files, and urls (/load_html, /load_html_file, /load_html_url)
-- upload saved screenshots from filename
+- upload saved screenshots from filename (/get_image, /get_all_named_images)
+- set resolution of screenshots (/set_image_size)
 
 ### usage
 
@@ -44,7 +45,7 @@ make sure you have [python](https://www.python.org/downloads/) installed.
 
 ### todo
 
-- [ ] search images
+- [x] search images
 - [ ] move images
 - [ ] rename images
 - [ ] temp file: remove command
