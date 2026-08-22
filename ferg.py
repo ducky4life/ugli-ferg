@@ -17,7 +17,7 @@ output_path = "images"
 token = os.getenv("FERG_TOKEN")
 hti = Html2Image(
     output_path=output_path,
-    custom_flags=['--virtual-time-budget=10000', '--hide-scrollbars', '--default-background-color=00000000'],
+    custom_flags=['--hide-scrollbars', '--default-background-color=00000000'],
 )
 
 if not os.path.exists(output_path):
