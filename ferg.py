@@ -34,6 +34,8 @@ async def on_ready():
     await client.tree.sync()
 # endregion
 
+async def get_image_path(image_name: str):
+    return output_path + "/" + image_name
 
 async def send_codeblock(ctx, msg, *, view=None):
     if len(msg) > 1993:
@@ -54,24 +56,27 @@ async def send_codeblock(ctx, msg, *, view=None):
 
 
 @client.hybrid_command()
-async def load_html(ctx, *, html: str):
-    curr_time = int(time.time())
-    hti.screenshot(html_str=html, css_str="", save_as=f'{curr_time}.png')
-    await ctx.send("ok", file=discord.File(f'{output_path}/{curr_time}.png'))
+async def load_html(ctx, *, html: str, name: str=None):
+    filename = name if name else str(int(time.time()))
+    filename = filename + ".png"
+    hti.screenshot(html_str=html, css_str="", save_as=filename)
+    await ctx.send("ok", file=discord.File(get_image_path(filename)))
 
 @client.hybrid_command()
-async def load_html_url(ctx, url: str):
-    curr_time = int(time.time())
-    hti.screenshot(url=url, save_as=f'{curr_time}.png')
-    await ctx.send("ok", file=discord.File(f'{output_path}/{curr_time}.png'))
+async def load_html_url(ctx, url: str, name: str=None):
+    filename = name if name else str(int(time.time()))
+    filename = filename + ".png"
+    hti.screenshot(url=url, save_as=filename)
+    await ctx.send("ok", file=discord.File(get_image_path(filename)))
 
 @client.hybrid_command()
-async def load_html_file(ctx, html_file: discord.Attachment):
+async def load_html_file(ctx, html_file: discord.Attachment, name: str=None):
     await html_file.save()
-    curr_time = int(time.time())
-    hti.screenshot(html_file=html_file.filename, save_as=f'{curr_time}.png')
+    filename = name if name else str(int(time.time()))
+    filename = filename + ".png"
+    hti.screenshot(html_file=html_file.filename, save_as=filename)
     os.remove(html_file.filename)
-    await ctx.send("ok", file=discord.File(f'{output_path}/{curr_time}.png'))
+    await ctx.send("ok", file=discord.File(get_image_path(filename)))
     
 
 bot_id_list = [1186326404267266059, 839794863591260182, 944245571714170930, 1396935480284680334, 1414634216292876308, 1529839995639173320]
@@ -81,7 +86,9 @@ async def on_message(message: discord.Message):
     await client.process_commands(message)
     if message.author.id not in bot_id_list and message.author.id != client.application_id:
         if "ugli" in message.content.lower():
-            await message.channel.send("hi i ugli")
+            await message.channel.send("hi i ✨ ugli ✨")
+        if "醜青蛙" in message.content.lower():
+            await message.channel.send(":(")
 
 @client.event
 async def on_command_error(ctx, error):
