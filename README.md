@@ -43,3 +43,8 @@ make sure you have [python](https://www.python.org/downloads/) installed.
    ```
 
 ### todo
+
+- [ ] search images
+- [ ] move images
+- [ ] rename images
+- [ ] temp file: remove command

@@ -37,6 +37,9 @@ async def on_ready():
 def get_image_path(image_name: str):
     return (output_path + "/" + image_name)
 
+async def search_image(query: str):
+    pass
+
 async def send_codeblock(ctx, msg, *, view=None):
     if len(msg) > 1993:
         if len(msg) > 3993:
