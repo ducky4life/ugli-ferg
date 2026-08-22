@@ -34,8 +34,8 @@ async def on_ready():
     await client.tree.sync()
 # endregion
 
-async def get_image_path(image_name: str):
-    return output_path + "/" + image_name
+def get_image_path(image_name: str):
+    return (output_path + "/" + image_name)
 
 async def send_codeblock(ctx, msg, *, view=None):
     if len(msg) > 1993:
@@ -57,13 +57,15 @@ async def send_codeblock(ctx, msg, *, view=None):
 
 @client.hybrid_command()
 async def load_html(ctx, *, html: str, name: str=None):
-    filename = name if name else str(int(time.time()))
+    await ctx.defer()
+    filename = name if name != None else str(int(time.time()))
     filename = filename + ".png"
     hti.screenshot(html_str=html, css_str="", save_as=filename)
     await ctx.send("ok", file=discord.File(get_image_path(filename)))
 
 @client.hybrid_command()
 async def load_html_url(ctx, url: str, name: str=None):
+    await ctx.defer()
     filename = name if name else str(int(time.time()))
     filename = filename + ".png"
     hti.screenshot(url=url, save_as=filename)
@@ -71,11 +73,17 @@ async def load_html_url(ctx, url: str, name: str=None):
 
 @client.hybrid_command()
 async def load_html_file(ctx, html_file: discord.Attachment, name: str=None):
+    await ctx.defer()
     await html_file.save()
     filename = name if name else str(int(time.time()))
     filename = filename + ".png"
     hti.screenshot(html_file=html_file.filename, save_as=filename)
     os.remove(html_file.filename)
+    await ctx.send("ok", file=discord.File(get_image_path(filename)))
+
+@client.hybrid_command()
+async def get_image(ctx, *, filename: str=None):
+    await ctx.defer()
     await ctx.send("ok", file=discord.File(get_image_path(filename)))
     
 
